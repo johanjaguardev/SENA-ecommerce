@@ -1,42 +1,59 @@
+/* Estilos específicos del App */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Animaciones de hover para productos */
+@media (hover: hover) {
+  [role='article']:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Mejoras de accesibilidad para navegación por teclado */
+a:focus,
+button:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* Ajustes para tablets */
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    gap: 1rem !important;
+  }
+
+  .category-card {
+    min-width: 150px !important;
+    height: 120px !important;
   }
 }
 
-.card {
-  padding: 2em;
+@media (max-width: 480px) {
+  /* Ajustes para móviles */
+  .product-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 1rem !important;
+  }
 }
 
-.read-the-docs {
-  color: #888;
+/* Loading state */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
 }
