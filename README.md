@@ -1,73 +1,191 @@
-# React + TypeScript + Vite
+# SENA eCommerce 🛒
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Plataforma de comercio electrónico moderna desarrollada con React, TypeScript y Vite.
 
-Currently, two official plugins are available:
+## 🚀 Demo en Vivo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Ver aplicación en GitHub Pages](https://TU-USUARIO.github.io/sena_ecommerce)
 
-## React Compiler
+## 📋 Características
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ✅ Arquitectura modular de componentes
+- ✅ TypeScript para type safety
+- ✅ Responsive design
+- ✅ HTML semántico y accesible (ARIA)
+- ✅ Preparado para i18n y RTL
+- ✅ Carrusel de categorías
+- ✅ Grid adaptable de productos
+- ✅ Mock data para desarrollo
 
-## Expanding the ESLint configuration
+## 🛠️ Stack Tecnológico
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19** - Librería UI
+- **TypeScript** - Tipado estático
+- **Vite** - Build tool y dev server
+- **CSS-in-JS** - Estilos inline
+- **GitHub Pages** - Hosting
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📦 Versiones
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### v1.0.0 - HomePage Inicial (2024-01-XX)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- ✅ Componente HomePage con layout completo
+- ✅ Header con navegación global
+- ✅ Footer informativo
+- ✅ Carrusel de categorías
+- ✅ Grid de productos destacados
+- ✅ ProductCard reutilizable
+- ✅ Mock data para categorías y productos
+
+### v1.1.0 - Próxima versión
+
+- 🔄 Sistema de enrutamiento
+- 🔄 Página de detalle de producto
+- 🔄 Funcionalidad de carrito
+
+## 💻 Instalación y Desarrollo Local
+
+### Prerrequisitos
+
+- Node.js >= 18
+- npm o yarn
+
+### Instalación
+
+```bash
+# Clonar el repositorio
+git clone https://github.com/TU-USUARIO/sena_ecommerce.git
+cd sena_ecommerce
+
+# Instalar dependencias
+npm install
+
+# Ejecutar en modo desarrollo
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+El proyecto estará disponible en `http://localhost:3000`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🏗️ Comandos Disponibles
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Desarrollo
+npm run dev          # Inicia servidor de desarrollo
+
+# Producción
+npm run build        # Genera build de producción en /dist
+npm run preview      # Preview del build de producción
+
+# Despliegue
+npm run deploy       # Despliega a GitHub Pages
+
+# Linting
+npm run lint         # Ejecuta ESLint
 ```
+
+## 📁 Estructura del Proyecto
+
+```
+src/
+├── assets/          # Recursos estáticos
+├── components/      # Componentes reutilizables
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── CategoryCarousel.tsx
+│   ├── ProductCard.tsx
+│   └── ProductGrid.tsx
+├── pages/           # Páginas/vistas
+│   └── HomePage.tsx
+├── types/           # Definiciones TypeScript
+│   └── index.ts
+├── App.tsx          # Componente principal
+└── main.tsx         # Entry point
+```
+
+## 🚀 Despliegue a GitHub Pages
+
+### Primera vez
+
+1. **Configurar vite.config.ts**
+
+   ```typescript
+   base: '/sena_ecommerce/', // Nombre de tu repo
+   ```
+
+2. **Crear repositorio en GitHub**
+
+   ```bash
+   git init
+   git add .
+   git commit -m "v1.0.0 - Initial release"
+   git branch -M main
+   git remote add origin https://github.com/TU-USUARIO/sena_ecommerce.git
+   git push -u origin main
+   ```
+
+3. **Desplegar**
+
+   ```bash
+   npm run deploy
+   ```
+
+4. **Configurar GitHub Pages**
+   - Ve a Settings → Pages
+   - Source: gh-pages branch
+   - Guarda y espera 1-2 minutos
+
+### Nuevas versiones
+
+```bash
+# Hacer cambios en el código
+git add .
+git commit -m "v1.1.0 - Descripción del cambio"
+git tag -a v1.1.0 -m "Versión 1.1.0"
+git push origin main --tags
+npm run deploy
+```
+
+## 🎨 Características de Diseño
+
+- **Responsive**: Grid adaptable y flexbox
+- **Semántico**: Tags HTML5 apropiados
+- **Accesible**: ARIA labels y roles
+- **i18n Ready**: Atributos lang y dir configurables
+- **Modular**: Componentes reutilizables y desacoplados
+
+## 📝 Convenciones de Código
+
+- Componentes en PascalCase
+- Archivos .tsx para componentes React
+- Tipos e interfaces en src/types/
+- Estilos inline con tipado React.CSSProperties
+- Props tipadas con interfaces
+
+## 🤝 Contribuir
+
+1. Fork el proyecto
+2. Crea una rama (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add: AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
+
+## 👨‍💻 Autor
+
+**Tu Nombre**
+
+- GitHub: [@TU-USUARIO](https://github.com/TU-USUARIO)
+- Proyecto: SENA - Desarrollo de Software
+
+## 🙏 Agradecimientos
+
+- SENA Colombia
+- Comunidad de React
+- Vite Team
+
+---
+
+⭐️ Si te gusta este proyecto, dale una estrella en GitHub!
