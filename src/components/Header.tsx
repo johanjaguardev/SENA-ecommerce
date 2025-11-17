@@ -61,7 +61,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     cursor: 'pointer',
   },
   cartButton: {
-    backgroundColor: '#ffd700',
+    backgroundColor: '#00ff2aff',
     color: '#1a1a1a',
     border: 'none',
     padding: '0.5rem 1.5rem',
