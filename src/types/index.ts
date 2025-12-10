@@ -29,3 +29,7 @@ export interface ProductCardProps {
 export interface ProductGridProps {
   products: Product[];
 }
+
+export interface HamburguerMenuProps {
+  items: Array<{ label: string; href: string }>;
+}

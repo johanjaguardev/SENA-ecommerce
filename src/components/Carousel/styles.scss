@@ -1,0 +1,62 @@
+/* Carousel Styles */
+
+.carousel {
+  margin-bottom: 3rem;
+
+  &__card {
+    cursor: pointer;
+
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 200px;
+    height: 150px;
+
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__card-name {
+    margin: 0;
+    padding: 0 1rem;
+
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    text-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+  }
+
+  &__container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  &__title {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  &__track {
+    scroll-behavior: smooth;
+    scrollbar-color: #ffd700 #f0f0f0;
+    scrollbar-width: thin;
+
+    overflow-x: auto;
+    display: flex;
+    gap: 1rem;
+
+    padding: 1rem 0;
+  }
+}
