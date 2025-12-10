@@ -2,54 +2,54 @@
 
 .carousel {
   margin-bottom: 3rem;
-}
 
-.carousel__title {
-  font-size: 1.75rem;
-  margin-bottom: 1.5rem;
-  color: #1a1a1a;
-  font-weight: 700;
-}
+  &__card {
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    height: 150px;
+    justify-content: center;
+    min-width: 200px;
+    transition: transform 0.3s;
 
-.carousel__container {
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-}
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 
-.carousel__track {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 1rem 0;
-  scrollbar-width: thin;
-  scrollbar-color: #ffd700 #f0f0f0;
-}
+  &__card-name {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0 1rem;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
 
-.carousel__card {
-  min-width: 200px;
-  height: 150px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-  transition: transform 0.3s;
-}
+  &__container {
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
 
-.carousel__card:hover {
-  transform: scale(1.05);
-}
+  &__title {
+    color: #1a1a1a;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
 
-.carousel__card-name {
-  color: white;
-  font-size: 1.25rem;
-  font-weight: 600;
-  text-align: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  margin: 0;
-  padding: 0 1rem;
+  &__track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+    scroll-behavior: smooth;
+    scrollbar-color: #ffd700 #f0f0f0;
+    scrollbar-width: thin;
+  }
 }
