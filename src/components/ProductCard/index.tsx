@@ -1,14 +1,6 @@
 import React from 'react';
 import type { ProductCardProps } from '../../types';
-import {
-  AddToCartButton,
-  ProductCardContainer,
-  ProductCardImage,
-  ProductCardInfo,
-  ProductCardPrice,
-  ProductCardTitle,
-  ProductCartDescription,
-} from './styles';
+import './styles.css';
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const handleAddToCart = () => {
@@ -17,22 +9,25 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <ProductCardContainer role="article" aria-labelledby={`product-${product.id}`}>
-      <ProductCardImage src={product.image} alt={product.name} loading="lazy" />
-      <ProductCardInfo>
-        <ProductCardTitle id={`product-${product.id}`}>{product.name}</ProductCardTitle>
-        <ProductCardPrice aria-label={`Precio: ${product.price}`}>
+    <article className="product-card" role="article" aria-labelledby={`product-${product.id}`}>
+      <img src={product.image} alt={product.name} loading="lazy" className="product-card__image" />
+      <div className="product-card__info">
+        <h3 className="product-card__title" id={`product-${product.id}`}>
+          {product.name}
+        </h3>
+        <p className="product-card__price" aria-label={`Precio: ${product.price}`}>
           ${product.price.toFixed(2)}
-        </ProductCardPrice>
-        <ProductCartDescription>{product.description}</ProductCartDescription>
-        <AddToCartButton
+        </p>
+        <p className="product-card__description">{product.description}</p>
+        <button
+          className="product-card__button"
           onClick={handleAddToCart}
           aria-label={`Agregar ${product.name} al carrito`}
         >
           Agregar al Carrito
-        </AddToCartButton>
-      </ProductCardInfo>
-    </ProductCardContainer>
+        </button>
+      </div>
+    </article>
   );
 };
 

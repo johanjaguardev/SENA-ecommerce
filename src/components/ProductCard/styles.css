@@ -1,50 +1,53 @@
-import styled from 'styled-components';
+/* ProductCard Styles */
 
-export const ProductCardContainer = styled.article`
+.product-card {
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition:
-    transform 0.3s,
-    box-shadow 0.3s;
-`;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
 
-export const ProductCardImage = styled.img`
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.product-card__image {
   width: 100%;
   height: 200px;
   object-fit: cover;
   display: block;
-`;
+}
 
-export const ProductCardInfo = styled.div`
+.product-card__info {
   padding: 1rem;
-`;
+}
 
-export const ProductCardTitle = styled.h3`
+.product-card__title {
   font-size: 1rem;
   margin: 0 0 0.5rem 0;
   color: #1a1a1a;
   font-weight: 600;
   line-height: 1.4;
-`;
+}
 
-export const ProductCardPrice = styled.p`
+.product-card__price {
   font-size: 1.25rem;
   font-weight: 700;
-  color: lime;
+  color: #ffd700;
   margin: 0.5rem 0;
-`;
+}
 
-export const ProductCartDescription = styled.p`
+.product-card__description {
   font-size: 0.875rem;
   color: #666;
   margin: 0.5rem 0;
   line-height: 1.4;
-`;
+}
 
-export const AddToCartButton = styled.button`
+.product-card__button {
   width: 100%;
   background-color: #1a1a1a;
   color: white;
@@ -55,5 +58,13 @@ export const AddToCartButton = styled.button`
   cursor: pointer;
   margin-top: 1rem;
   font-size: 1rem;
-  transition: background-color 0.2s;
-`;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.product-card__button:hover {
+  opacity: 0.9;
+}
+
+.product-card__button:active {
+  transform: scale(0.98);
+}

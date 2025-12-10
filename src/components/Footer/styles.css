@@ -1,56 +1,61 @@
-import styled from 'styled-components';
+/* Footer Styles */
 
-export const FooterContainer = styled.footer`
+.footer {
   background-color: #1a1a1a;
   color: white;
   padding: 2rem;
   margin-top: auto;
-`;
+}
 
-export const FooterContent = styled.div`
+.footer__content {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-`;
+}
 
-export const FooterSection = styled.div`
+.footer__section {
   line-height: 1.6;
-`;
+}
 
-export const FooterTitle = styled.h3`
+.footer__title {
   margin-bottom: 1rem;
   font-size: 1.125rem;
   color: #ffd700;
   margin-top: 0;
-`;
+}
 
-export const FooterText = styled.p`
+.footer__text {
   color: white;
   margin: 0;
-`;
+}
 
-export const FooterList = styled.ul`
+.footer__list {
   list-style: none;
   padding: 0;
   margin: 0;
-`;
+}
 
-export const FooterListItem = styled.li`
+.footer__list-item {
   margin-bottom: 0.5rem;
   color: white;
-`;
+}
 
-export const FooterLink = styled.a`
+.footer__link {
   color: white;
   text-decoration: none;
-`;
+  transition: opacity 0.2s;
+}
 
-export const FooterCopyright = styled.div`
+.footer__link:hover {
+  opacity: 0.8;
+}
+
+.footer__copyright {
   text-align: center;
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid #333;
   color: #999;
-`;
+}
