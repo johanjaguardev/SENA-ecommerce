@@ -4,15 +4,19 @@
   margin-bottom: 3rem;
 
   &__card {
-    align-items: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+
     display: flex;
     flex-shrink: 0;
-    height: 150px;
+    align-items: center;
     justify-content: center;
+
     min-width: 200px;
+    height: 150px;
+
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+
     transition: transform 0.3s;
 
     &:hover {
@@ -21,35 +25,38 @@
   }
 
   &__card-name {
-    color: white;
-    font-size: 1.25rem;
-    font-weight: 600;
     margin: 0;
     padding: 0 1rem;
+
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
     text-align: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 4px rgb(0 0 0 / 30%);
   }
 
   &__container {
-    border-radius: 8px;
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
+    border-radius: 8px;
   }
 
   &__title {
-    color: #1a1a1a;
+    margin-bottom: 1.5rem;
     font-size: 1.75rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    color: #1a1a1a;
   }
 
   &__track {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    padding: 1rem 0;
     scroll-behavior: smooth;
     scrollbar-color: #ffd700 #f0f0f0;
     scrollbar-width: thin;
+
+    overflow-x: auto;
+    display: flex;
+    gap: 1rem;
+
+    padding: 1rem 0;
   }
 }
