@@ -59,3 +59,7 @@ export interface FilterState {
   precioMin: number;
   precioMax: number;
 }
+
+export interface HamburguerMenuProps {
+  items: Array<{ label: string; href: string }>;
+}

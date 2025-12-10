@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.scss';
+import HamburguerMenu from '../HamburguerMenu';
 
 const Header: React.FC = () => {
   return (
@@ -23,6 +24,14 @@ const Header: React.FC = () => {
             🛒 Carrito (0)
           </button>
         </nav>
+        <HamburguerMenu
+          items={[
+            { label: 'Inicio', href: '#inicio' },
+            { label: 'Productos', href: '#productos' },
+            { label: 'Categorías', href: '#categorias' },
+            { label: 'Contacto', href: '#contacto' },
+          ]}
+        />
       </div>
     </header>
   );
