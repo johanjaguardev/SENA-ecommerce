@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ProductCardProps } from '../../types';
-import './styles.css';
+import './styles.scss';
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const handleAddToCart = () => {
