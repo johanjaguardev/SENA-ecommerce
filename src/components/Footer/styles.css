@@ -1,25 +1,28 @@
 /* Footer Styles */
 
 .footer {
-  background-color: #1a1a1a;
-  color: white;
   margin-top: auto;
   padding: 2rem;
+  color: white;
+  background-color: #1a1a1a;
 
   &__content {
     display: grid;
-    gap: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    margin: 0 auto;
+    gap: 2rem;
+
     max-width: 1200px;
+    margin: 0 auto;
   }
 
   &__copyright {
-    border-top: 1px solid #333;
-    color: #999;
     margin-top: 2rem;
     padding-top: 2rem;
+
+    color: #999;
     text-align: center;
+
+    border-top: 1px solid #333;
   }
 
   &__link {
@@ -33,14 +36,14 @@
   }
 
   &__list {
-    list-style: none;
     margin: 0;
     padding: 0;
+    list-style: none;
   }
 
   &__list-item {
-    color: white;
     margin-bottom: 0.5rem;
+    color: white;
   }
 
   &__section {
@@ -48,14 +51,14 @@
   }
 
   &__text {
-    color: white;
     margin: 0;
+    color: white;
   }
 
   &__title {
-    color: #ffd700;
-    font-size: 1.125rem;
-    margin-bottom: 1rem;
     margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    color: #ffd700;
   }
 }

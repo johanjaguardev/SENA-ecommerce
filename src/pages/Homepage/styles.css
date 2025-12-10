@@ -3,10 +3,12 @@
 .homepage {
   display: flex;
   flex-direction: column;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  margin: 0;
+
   min-height: 100vh;
+  margin: 0;
   padding: 0;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   &__inner-box {
     padding: 4rem;
@@ -14,17 +16,18 @@
   }
 
   &__main-content {
-    box-sizing: border-box;
     flex: 1;
-    margin: 0 auto;
-    max-width: 1200px;
-    padding: 2rem;
+
+    box-sizing: border-box;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
   }
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .homepage__inner-box {
     padding: 2rem;
   }
@@ -34,7 +37,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .homepage__inner-box {
     padding: 1.5rem;
   }
