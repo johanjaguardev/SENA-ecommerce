@@ -1,13 +1,20 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-config-clean-order"],
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-clean-order"],
   "plugins": ["stylelint-order"],
   "overrides": [
+    {
+      "files": ["**/*.scss"],
+      "customSyntax": "postcss-scss"
+    },
     {
       "files": ["**/*.{html,jsx,tsx}"],
       "customSyntax": "postcss-html"
     }
   ],
   "rules": {
-    "selector-class-pattern": "^[a-z0-9\\-]+(__[a-z0-9\\-]+)?(--[a-z0-9\\-]+)?$"
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+    "selector-class-pattern": "^[a-z0-9\\-]+(__[a-z0-9\\-]+)?(--[a-z0-9\\-]+)?$",
+    "order/properties-alphabetical-order": null
   }
 }

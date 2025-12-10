@@ -1,7 +1,7 @@
 import React from 'react';
 import type { ProductGridProps } from '../../types';
 import ProductCard from '../ProductCard';
-import './styles.css';
+import './styles.scss';
 
 const ProductGrid: React.FC<ProductGridProps> = ({ products }) => {
   return (

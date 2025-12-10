@@ -1,6 +1,6 @@
 import React from 'react';
 import type { CategoryCarouselProps } from '../../types';
-import './styles.css';
+import './styles.scss';
 
 const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ categories }) => {
   return (

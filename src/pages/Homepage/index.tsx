@@ -6,7 +6,7 @@ import ProductGrid from '../../components/ProductsGrid';
 import CategoryCarousel from '../../components/Carousel';
 import { mockCategories } from '../../mock/categories';
 import { mockProducts } from '../../mock/products';
-import './styles.css';
+import './styles.scss';
 
 const HomePage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
