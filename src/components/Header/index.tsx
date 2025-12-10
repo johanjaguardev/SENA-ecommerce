@@ -1,27 +1,30 @@
 import React from 'react';
-import {
-  HeaderCartButton,
-  HeaderContainer,
-  HeaderContent,
-  HeaderLogo,
-  HeaderNav,
-  HeaderNavLink,
-} from './styles';
+import './styles.css';
 
 const Header: React.FC = () => {
   return (
-    <HeaderContainer>
-      <HeaderContent>
-        <HeaderLogo>Mi Tienda</HeaderLogo>
-        <HeaderNav role="navigation" aria-label="Navegación principal">
-          <HeaderNavLink href="#inicio">Inicio</HeaderNavLink>
-          <HeaderNavLink href="#productos">Productos</HeaderNavLink>
-          <HeaderNavLink href="#categorias">Categorías</HeaderNavLink>
-          <HeaderNavLink href="#contacto">Contacto</HeaderNavLink>
-          <HeaderCartButton aria-label="Ver carrito de compras">🛒 Carrito (0)</HeaderCartButton>
-        </HeaderNav>
-      </HeaderContent>
-    </HeaderContainer>
+    <header className="header">
+      <div className="header__content">
+        <h1 className="header__logo">Mi Tienda</h1>
+        <nav className="header__nav" role="navigation" aria-label="Navegación principal">
+          <a href="#inicio" className="header__nav-link">
+            Inicio
+          </a>
+          <a href="#productos" className="header__nav-link">
+            Productos
+          </a>
+          <a href="#categorias" className="header__nav-link">
+            Categorías
+          </a>
+          <a href="#contacto" className="header__nav-link">
+            Contacto
+          </a>
+          <button className="header__cart-button" aria-label="Ver carrito de compras">
+            🛒 Carrito (0)
+          </button>
+        </nav>
+      </div>
+    </header>
   );
 };
 

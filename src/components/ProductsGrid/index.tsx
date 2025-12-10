@@ -1,18 +1,20 @@
 import React from 'react';
 import type { ProductGridProps } from '../../types';
 import ProductCard from '../ProductCard';
-import { Section, SectionTitle, ProductGridContainer } from './styles';
+import './styles.css';
 
 const ProductGrid: React.FC<ProductGridProps> = ({ products }) => {
   return (
-    <Section aria-labelledby="products-title">
-      <SectionTitle id="products-title">Productos Destacados</SectionTitle>
-      <ProductGridContainer>
+    <section className="products-section" aria-labelledby="products-title">
+      <h2 className="products-section__title" id="products-title">
+        Productos Destacados
+      </h2>
+      <div className="products-grid">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
-      </ProductGridContainer>
-    </Section>
+      </div>
+    </section>
   );
 };
 

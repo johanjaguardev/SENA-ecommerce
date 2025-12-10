@@ -3,10 +3,10 @@ import type { Category, Product } from '../../types';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ProductGrid from '../../components/ProductsGrid';
-import CategoryCarousel from '../../components/CategorySlide';
+import CategoryCarousel from '../../components/Carousel';
 import { mockCategories } from '../../mock/categories';
-import { HomepageContainer, HomepageInnerBox, HomepageMainContent } from './styles';
 import { mockProducts } from '../../mock/products';
+import './styles.css';
 
 const HomePage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -27,27 +27,27 @@ const HomePage: React.FC = () => {
 
   if (loading) {
     return (
-      <HomepageContainer dir="ltr" lang="es">
+      <div className="homepage" dir="ltr" lang="es">
         <Header />
-        <HomepageMainContent>
-          <HomepageInnerBox>
+        <main className="homepage__main-content">
+          <div className="homepage__inner-box">
             <h2>Cargando...</h2>
-          </HomepageInnerBox>
-        </HomepageMainContent>
+          </div>
+        </main>
         <Footer />
-      </HomepageContainer>
+      </div>
     );
   }
 
   return (
-    <HomepageContainer dir="ltr" lang="es">
+    <div className="homepage" dir="ltr" lang="es">
       <Header />
-      <HomepageMainContent>
+      <main className="homepage__main-content">
         <CategoryCarousel categories={categories} />
         <ProductGrid products={products} />
-      </HomepageMainContent>
+      </main>
       <Footer />
-    </HomepageContainer>
+    </div>
   );
 };
 
