@@ -2,35 +2,35 @@ import React from 'react';
 import type { ProductGridProps } from '../types';
 import ProductCard from './ProductCard';
 
-const ProductGrid: React.FC<ProductGridProps> = ({ products }) => {
+interface ProductGridExtendedProps extends ProductGridProps {
+  onViewDetails?: (product: ProductGridProps['products'][0]) => void;
+  onAddToCart?: (product: ProductGridProps['products'][0]) => void;
+}
+
+const ProductGrid: React.FC<ProductGridExtendedProps> = ({
+  products,
+  onViewDetails,
+  onAddToCart,
+}) => {
   return (
-    <section style={styles.section} aria-labelledby="products-title">
-      <h2 style={styles.sectionTitle} id="products-title">
-        Productos Destacados
-      </h2>
-      <div style={styles.productGrid}>
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-    </section>
+    <div style={styles.productGrid}>
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          product={product}
+          onViewDetails={onViewDetails}
+          onAddToCart={onAddToCart}
+        />
+      ))}
+    </div>
   );
 };
 
 const styles: { [key: string]: React.CSSProperties } = {
-  section: {
-    marginBottom: '3rem',
-  },
-  sectionTitle: {
-    fontSize: '1.75rem',
-    marginBottom: '1.5rem',
-    color: '#1a1a1a',
-    fontWeight: 700,
-  },
   productGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-    gap: '2rem',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gap: '1.5rem',
   },
 };
 
