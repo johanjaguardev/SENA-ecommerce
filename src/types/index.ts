@@ -63,3 +63,7 @@ export interface FilterState {
 export interface HamburguerMenuProps {
   items: Array<{ label: string; href: string }>;
 }
+
+export interface HamburguerMenuProps {
+  items: Array<{ label: string; href: string }>;
+}
