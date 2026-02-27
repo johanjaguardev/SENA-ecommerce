@@ -66,6 +66,18 @@ npm run dev
 
 El proyecto estará disponible en `http://localhost:3000`
 
+## 💳 Checkout MVP (pasarela)
+
+Puedes configurar la URL de la pasarela con una variable de entorno en Vite:
+
+```bash
+VITE_PAYMENT_GATEWAY_URL=https://checkout.wompi.co/l/TU_LINK_ID
+```
+
+Para Wompi en este MVP debes usar un **payment link** (`/l/...`).
+No uses `https://sandbox.wompi.co/` ni rutas base porque responden 403.
+Si no defines `VITE_PAYMENT_GATEWAY_URL`, el proyecto abre `checkout-mvp` (pasarela simulada local).
+
 ## 🏗️ Comandos Disponibles
 
 ```bash

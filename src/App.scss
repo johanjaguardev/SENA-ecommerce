@@ -31,6 +31,16 @@ button:focus {
     min-width: 150px !important;
     height: 120px !important;
   }
+
+  /* Header responsive */
+  .header-content-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .hero-title-responsive {
+    font-size: 2.5rem !important;
+  }
 }
 
 @media (width <= 480px) {
@@ -42,6 +52,14 @@ button:focus {
   nav {
     flex-direction: column;
     gap: 1rem !important;
+  }
+
+  .hero-title-responsive {
+    font-size: 2rem !important;
+  }
+
+  .hero-subtitle-responsive {
+    font-size: 1rem !important;
   }
 }
 
