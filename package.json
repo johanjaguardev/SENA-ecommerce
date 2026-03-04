@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "audit": "^0.0.6",
-    "fix": "^0.0.6",
+    "fix": "^0.0.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.13.0"
