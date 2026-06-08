@@ -4,107 +4,65 @@ import type { CartItem } from '../types';
 
 interface CartModalProps {
   isOpen: boolean;
-  items: CartItem[];
   onClose: () => void;
-  onUpdateQuantity?: (id: number, quantity: number) => void;
-  onRemoveItem?: (id: number) => void;
-  onCheckout?: () => void;
-  isCheckoutLoading?: boolean;
+  cartItems: CartItem[];
+  onRemoveFromCart: (productId: number | string) => void;
+  onUpdateQuantity: (productId: number | string, quantity: number) => void;
+  onCheckout: () => void;
+  isCheckoutLoading: boolean;
 }
 
 const CartModal: React.FC<CartModalProps> = ({
   isOpen,
-  items,
   onClose,
+  cartItems = [],
+  onRemoveFromCart,
   onUpdateQuantity,
-  onRemoveItem,
   onCheckout,
-  isCheckoutLoading = false,
+  isCheckoutLoading,
 }) => {
-  const formatPrice = (price: number) =>
+  const formatPrice = (value: number) =>
     new Intl.NumberFormat('es-CO', {
       style: 'currency',
       currency: 'COP',
       minimumFractionDigits: 0,
-    }).format(price);
+    }).format(value);
 
-  const total = items.reduce((sum, item) => sum + item.precio * item.quantity, 0);
+  const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Tu carrito" size="large">
-      {items.length === 0 ? (
-        <div style={styles.emptyState}>
-          <p style={styles.emptyTitle}>Tu carrito está vacío</p>
-          <p style={styles.emptyText}>Explora nuestras bicicletas y agrega tus favoritas.</p>
-        </div>
+    <Modal isOpen={isOpen} onClose={onClose} title="Carrito de Compras">
+      {cartItems.length === 0 ? (
+        <p style={styles.emptyMessage}>Tu carrito está vacío.</p>
       ) : (
-        <div style={styles.container}>
-          <div style={styles.list}>
-            {items.map((item) => (
-              <div key={item.id} style={styles.itemRow}>
-                <img src={item.imagen} alt={item.name} style={styles.itemImage} />
-                <div style={styles.itemInfo}>
-                  <h3 style={styles.itemName}>{item.name}</h3>
-                  <p style={styles.itemMeta}>
-                    {item.marca} • {item.tipo} • {item.color}
-                  </p>
-                  <p style={styles.itemPrice}>{formatPrice(item.precio)}</p>
+        <div style={styles.cartContent}>
+          <ul style={styles.itemList}>
+            {cartItems.map((item) => (
+              <li key={item.id} style={styles.item}>
+                <img src={item.image} alt={item.name} style={styles.itemImage} />
+                <div style={styles.itemDetails}>
+                  <span style={styles.itemName}>{item.name}</span>
+                  <span style={styles.itemPrice}>{formatPrice(item.price)}</span>
                 </div>
-                <div style={styles.itemActions}>
-                  <div style={styles.quantityWrapper}>
-                    <button
-                      type="button"
-                      style={styles.qtyButton}
-                      onClick={() =>
-                        onUpdateQuantity &&
-                        onUpdateQuantity(item.id, Math.max(1, item.quantity - 1))
-                      }
-                    >
-                      -
-                    </button>
-                    <span style={styles.quantity}>{item.quantity}</span>
-                    <button
-                      type="button"
-                      style={styles.qtyButton}
-                      onClick={() =>
-                        onUpdateQuantity && onUpdateQuantity(item.id, item.quantity + 1)
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-                  <button
-                    type="button"
-                    style={styles.removeButton}
-                    onClick={() => onRemoveItem && onRemoveItem(item.id)}
-                  >
-                    Quitar
+                <div style={styles.itemControls}>
+                  <input
+                    type="number"
+                    min="1"
+                    value={item.quantity}
+                    onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value, 10))}
+                    style={styles.quantityInput}
+                  />
+                  <button onClick={() => onRemoveFromCart(item.id)} style={styles.removeButton}>
+                    Eliminar
                   </button>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
-
+          </ul>
           <div style={styles.summary}>
-            <div style={styles.summaryRow}>
-              <span style={styles.summaryLabel}>Subtotal</span>
-              <span style={styles.summaryValue}>{formatPrice(total)}</span>
-            </div>
-            <div style={styles.summaryRow}>
-              <span style={styles.summaryLabel}>Envío estimado</span>
-              <span style={styles.summaryValue}>Incluido</span>
-            </div>
-            <div style={styles.summaryRowTotal}>
-              <span style={styles.summaryTotalLabel}>Total</span>
-              <span style={styles.summaryTotalValue}>{formatPrice(total)}</span>
-            </div>
-            <button
-              type="button"
-              style={styles.checkoutButton}
-              onClick={onCheckout}
-              disabled={items.length === 0 || isCheckoutLoading}
-            >
-              {isCheckoutLoading ? 'Redirigiendo...' : 'Proceder al pago'}
+            <p style={styles.total}>Total: {formatPrice(total)}</p>
+            <button onClick={onCheckout} style={styles.checkoutButton} disabled={isCheckoutLoading}>
+              {isCheckoutLoading ? 'Procesando...' : 'Finalizar Compra'}
             </button>
           </div>
         </div>
@@ -114,142 +72,51 @@ const CartModal: React.FC<CartModalProps> = ({
 };
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    display: 'grid',
-    gridTemplateColumns: '2fr 1fr',
-    gap: '2rem',
-  },
-  list: {
+  cartContent: { padding: '1rem' },
+  emptyMessage: { textAlign: 'center', padding: '2rem', color: '#666' },
+  itemList: { listStyle: 'none', padding: 0, margin: 0 },
+  item: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem',
-    maxHeight: '60vh',
-    overflowY: 'auto',
-    paddingRight: '0.5rem',
-  },
-  itemRow: {
-    display: 'grid',
-    gridTemplateColumns: '100px 1fr auto',
-    gap: '1rem',
-    padding: '0.75rem 0',
-    borderBottom: '1px solid #e5e7eb',
     alignItems: 'center',
+    marginBottom: '1rem',
+    borderBottom: '1px solid #eee',
+    paddingBottom: '1rem',
   },
   itemImage: {
-    width: '100px',
+    width: '80px',
     height: '80px',
     objectFit: 'cover',
-    borderRadius: '8px',
+    marginRight: '1rem',
+    borderRadius: '4px',
   },
-  itemInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.25rem',
-  },
-  itemName: {
-    margin: 0,
-    fontSize: '1rem',
-    fontWeight: 600,
-  },
-  itemMeta: {
-    margin: 0,
-    fontSize: '0.8rem',
-    color: '#6b7280',
-  },
-  itemPrice: {
-    margin: 0,
-    fontSize: '0.95rem',
-    fontWeight: 600,
-  },
-  itemActions: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    gap: '0.5rem',
-  },
-  quantityWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-  },
-  qtyButton: {
-    width: '28px',
-    height: '28px',
-    borderRadius: '999px',
-    border: '1px solid #d1d5db',
-    backgroundColor: 'white',
-    cursor: 'pointer',
-    fontWeight: 600,
-  },
-  quantity: {
-    minWidth: '24px',
-    textAlign: 'center',
-    fontSize: '0.9rem',
-  },
+  itemDetails: { flex: 1, display: 'flex', flexDirection: 'column' },
+  itemName: { fontWeight: 'bold', marginBottom: '0.25rem' },
+  itemPrice: { color: '#888' },
+  itemControls: { display: 'flex', alignItems: 'center' },
+  quantityInput: { width: '50px', textAlign: 'center', marginRight: '0.5rem' },
   removeButton: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    color: '#ef4444',
-    fontSize: '0.8rem',
+    background: 'none',
+    border: '1px solid #ccc',
+    color: '#f00',
     cursor: 'pointer',
-    textDecoration: 'underline',
+    padding: '0.25rem 0.5rem',
+    borderRadius: '4px',
   },
   summary: {
-    borderLeft: '1px solid #e5e7eb',
-    paddingLeft: '1.5rem',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.75rem',
+    marginTop: '1.5rem',
+    paddingTop: '1rem',
+    borderTop: '2px solid #333',
+    textAlign: 'right',
   },
-  summaryRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontSize: '0.9rem',
-    color: '#4b5563',
-  },
-  summaryRowTotal: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: '0.5rem',
-  },
-  summaryLabel: {
-    fontWeight: 500,
-  },
-  summaryValue: {
-    fontWeight: 500,
-  },
-  summaryTotalLabel: {
-    fontWeight: 700,
-    fontSize: '1rem',
-  },
-  summaryTotalValue: {
-    fontWeight: 700,
-    fontSize: '1.05rem',
-  },
+  total: { fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem' },
   checkoutButton: {
-    marginTop: '0.75rem',
-    width: '100%',
-    backgroundColor: '#ff6600',
+    backgroundColor: '#28a745',
     color: 'white',
     border: 'none',
-    padding: '0.8rem',
-    borderRadius: '8px',
-    fontSize: '0.95rem',
-    fontWeight: 600,
+    padding: '0.75rem 1.5rem',
+    fontSize: '1rem',
     cursor: 'pointer',
-  },
-  emptyState: {
-    textAlign: 'center',
-    padding: '2.5rem 1rem',
-  },
-  emptyTitle: {
-    fontSize: '1.2rem',
-    fontWeight: 600,
-    marginBottom: '0.5rem',
-  },
-  emptyText: {
-    fontSize: '0.9rem',
-    color: '#6b7280',
+    borderRadius: '5px',
   },
 };
 

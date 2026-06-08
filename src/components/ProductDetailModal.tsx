@@ -1,14 +1,12 @@
 import React from 'react';
 import Modal from './Modal';
-import type { Bicycle } from '../types';
+import type { Product } from '../types';
 
 interface ProductDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
-  product: Bicycle | null;
-  onAddToCart?: (product: Bicycle) => void;
-  onBuyNow?: (product: Bicycle) => void;
-  onViewCart?: () => void;
+  product: Product;
+  onAddToCart: (product: Product) => void;
 }
 
 const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
@@ -16,69 +14,37 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   onClose,
   product,
   onAddToCart,
-  onBuyNow,
-  onViewCart,
 }) => {
-  if (!product) return null;
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('es-CO', {
+  const formatPrice = (value: number) =>
+    new Intl.NumberFormat('es-CO', {
       style: 'currency',
       currency: 'COP',
       minimumFractionDigits: 0,
-    }).format(price);
-  };
+    }).format(value);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={product.name} size="large">
-      <div style={styles.container}>
+    <Modal isOpen={isOpen} onClose={onClose} title={product.name}>
+      <div style={styles.content}>
         <div style={styles.imageContainer}>
-          <img src={product.imagen} alt={product.name} style={styles.productImage} />
+          <img src={product.image} alt={product.name} style={styles.productImage} />
         </div>
-
         <div style={styles.detailsContainer}>
-          <div style={styles.descriptionSection}>
-            <h3 style={styles.sectionTitle}>Descripción:</h3>
-            <p style={styles.description}>{product.descripcion}</p>
+          <div style={styles.info}>
+            <p style={styles.description}>{product.description}</p>
+            {/* Aquí puedes añadir más detalles como marca, material, etc. */}
           </div>
-
-          <div style={styles.detailsSection}>
-            <div style={styles.detailRow}>
-              <span style={styles.detailLabel}>Tipo:</span>
-              <span style={styles.detailValue}>{product.tipo}</span>
+          <div style={styles.actions}>
+            <div style={styles.priceContainer}>
+              <span style={styles.price}>{formatPrice(product.price)}</span>
             </div>
-            {product.tamaño && (
-              <div style={styles.detailRow}>
-                <span style={styles.detailLabel}>Tamaño:</span>
-                <span style={styles.detailValue}>{product.tamaño}</span>
-              </div>
-            )}
-            <div style={styles.detailRow}>
-              <span style={styles.detailLabel}>Marca:</span>
-              <span style={styles.detailValue}>{product.marca}</span>
-            </div>
-            <div style={styles.detailRow}>
-              <span style={styles.detailLabel}>Color:</span>
-              <span style={styles.detailValue}>{product.color}</span>
-            </div>
-            <div style={styles.detailRow}>
-              <span style={styles.detailLabel}>Precio:</span>
-              <span style={styles.price}>{formatPrice(product.precio)}</span>
-            </div>
-          </div>
-
-          <div style={styles.actionsContainer}>
-            <button onClick={onViewCart} style={styles.viewCartButton}>
-              Ver Carrito
-            </button>
-            <button onClick={() => onBuyNow && onBuyNow(product)} style={styles.buyNowButton}>
-              Comprar ahora
-            </button>
             <button
-              onClick={() => onAddToCart && onAddToCart(product)}
+              onClick={() => {
+                onAddToCart(product);
+                onClose(); // Cierra el modal después de añadir al carrito
+              }}
               style={styles.addToCartButton}
             >
-              Añadir Carrito
+              Añadir al Carrito
             </button>
           </div>
         </div>
@@ -88,105 +54,57 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 };
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
+  content: {
+    display: 'flex',
     gap: '2rem',
+    padding: '1rem',
   },
   imageContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
   },
   productImage: {
     width: '100%',
-    maxHeight: '500px',
-    objectFit: 'contain',
+    height: 'auto',
     borderRadius: '8px',
   },
   detailsContainer: {
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    gap: '1.5rem',
+    justifyContent: 'space-between',
   },
-  descriptionSection: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-  },
-  sectionTitle: {
-    fontSize: '1.125rem',
-    fontWeight: 700,
-    color: '#1a1a1a',
-    margin: 0,
+  info: {
+    marginBottom: '1rem',
   },
   description: {
-    fontSize: '0.875rem',
-    color: '#666',
-    lineHeight: 1.6,
-    margin: 0,
+    fontSize: '1rem',
+    lineHeight: '1.6',
+    color: '#555',
   },
-  detailsSection: {
+  actions: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '0.75rem',
+    alignItems: 'flex-start',
+    borderTop: '1px solid #eee',
+    paddingTop: '1rem',
   },
-  detailRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0.5rem 0',
-    borderBottom: '1px solid #f0f0f0',
-  },
-  detailLabel: {
-    fontSize: '0.875rem',
-    fontWeight: 600,
-    color: '#666',
-  },
-  detailValue: {
-    fontSize: '0.875rem',
-    color: '#1a1a1a',
+  priceContainer: {
+    marginBottom: '1rem',
   },
   price: {
-    fontSize: '1.5rem',
-    fontWeight: 700,
-    color: '#1a1a1a',
-  },
-  actionsContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.75rem',
-    marginTop: 'auto',
-  },
-  viewCartButton: {
-    backgroundColor: '#f0f0f0',
-    color: '#1a1a1a',
-    border: '1px solid #e0e0e0',
-    padding: '0.75rem',
-    borderRadius: '4px',
-    fontSize: '1rem',
-    fontWeight: 600,
-    cursor: 'pointer',
-  },
-  buyNowButton: {
-    backgroundColor: '#ff6600',
-    color: 'white',
-    border: 'none',
-    padding: '0.75rem',
-    borderRadius: '4px',
-    fontSize: '1rem',
-    fontWeight: 600,
-    cursor: 'pointer',
+    fontSize: '1.8rem',
+    fontWeight: 'bold',
+    color: '#333',
   },
   addToCartButton: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#28a745',
     color: 'white',
     border: 'none',
-    padding: '0.75rem',
-    borderRadius: '4px',
+    padding: '0.75rem 1.5rem',
     fontSize: '1rem',
-    fontWeight: 600,
     cursor: 'pointer',
+    borderRadius: '5px',
+    width: '100%',
   },
 };
 

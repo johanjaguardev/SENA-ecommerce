@@ -72,7 +72,12 @@ const InfoPage: React.FC = () => {
 
   return (
     <div style={styles.pageContainer} dir="ltr" lang="es">
-      <Header onLoginClick={() => console.log('Login')} />
+      <Header
+        onLoginClick={() => {}}
+        onRegisterClick={() => {}}
+        cartItemCount={0}
+        onCartClick={() => {}}
+      />
       <main style={styles.mainContent}>
         <section style={styles.card}>
           <h1 style={styles.title}>{info?.title ?? 'Informacion'}</h1>

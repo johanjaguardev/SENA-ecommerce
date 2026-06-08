@@ -1,158 +1,121 @@
 import React from 'react';
-import type { ProductCardProps } from '../types';
+import type { Product } from '../types';
 
-interface ProductCardExtendedProps extends ProductCardProps {
-  onViewDetails?: (product: ProductCardProps['product']) => void;
-  onAddToCart?: (product: ProductCardProps['product']) => void;
+interface ProductCardProps {
+  product: Product;
+  onViewDetails?: (product: Product) => void;
+  onAddToCart?: (product: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardExtendedProps> = ({
-  product,
-  onViewDetails,
-  onAddToCart,
-}) => {
-  const handleViewCart = () => {
-    if (onViewDetails) {
-      onViewDetails(product);
-    }
-  };
-
-  const handleBuy = () => {
-    if (onAddToCart) {
-      onAddToCart(product);
-    }
-  };
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('es-CO', {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails, onAddToCart }) => {
+  const formatPrice = (value: number) =>
+    new Intl.NumberFormat('es-CO', {
       style: 'currency',
       currency: 'COP',
       minimumFractionDigits: 0,
-    }).format(price);
-  };
+    }).format(value);
 
   return (
-    <article style={styles.productCard} role="article" aria-labelledby={`product-${product.id}`}>
-      <img src={product.imagen} alt={product.name} loading="lazy" style={styles.productImage} />
+    <div style={styles.productCard} role="group" aria-labelledby={`product-name-${product.id}`}>
+      <div style={styles.imageContainer}>
+        {/* CORRECCIÓN: Usar product.image */}
+        <img src={product.image} alt={product.name} loading="lazy" style={styles.productImage} />
+      </div>
       <div style={styles.productInfo}>
-        <h3 style={styles.productTitle} id={`product-${product.id}`}>
+        <h3 id={`product-name-${product.id}`} style={styles.productName}>
           {product.name}
         </h3>
-
-        <div style={styles.productDetails}>
-          <p style={styles.detailItem}>
-            <span style={styles.detailLabel}>Tipo:</span> {product.tipo}
-          </p>
-          <p style={styles.detailItem}>
-            <span style={styles.detailLabel}>Marca:</span> {product.marca}
-          </p>
-          <p style={styles.detailItem}>
-            <span style={styles.detailLabel}>Color:</span> {product.color}
-          </p>
-        </div>
-
-        <p style={styles.productPrice} aria-label={`Precio: ${product.precio}`}>
-          Precio: {formatPrice(product.precio)}
+        {/* CORRECCIÓN: Usar product.price */}
+        <p style={styles.productPrice} aria-label={`Precio: ${product.price}`}>
+          Precio: {formatPrice(product.price)}
         </p>
-
-        <div style={styles.buttonContainer}>
-          <button
-            style={styles.viewCartButton}
-            onClick={handleViewCart}
-            aria-label={`Ver detalles de ${product.name}`}
-          >
-            Ver Detalles
-          </button>
-          <button
-            style={styles.buyButton}
-            onClick={handleBuy}
-            aria-label={`Comprar ${product.name}`}
-          >
-            Comprar
-          </button>
+        <div style={styles.buttonGroup}>
+          {onViewDetails && (
+            <button
+              onClick={() => onViewDetails(product)}
+              style={styles.actionButton}
+              aria-label={`Ver detalles de ${product.name}`}
+            >
+              Ver Detalles
+            </button>
+          )}
+          {onAddToCart && (
+            <button
+              onClick={() => onAddToCart(product)}
+              style={styles.addToCartButton}
+              aria-label={`Añadir ${product.name} al carrito`}
+            >
+              Añadir al Carrito
+            </button>
+          )}
         </div>
       </div>
-    </article>
+    </div>
   );
 };
 
 const styles: { [key: string]: React.CSSProperties } = {
   productCard: {
-    backgroundColor: 'white',
+    border: '1px solid #e0e0e0',
     borderRadius: '8px',
     overflow: 'hidden',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    cursor: 'pointer',
-    transition: 'transform 0.3s, box-shadow 0.3s',
+    backgroundColor: '#fff',
     display: 'flex',
     flexDirection: 'column',
+    transition: 'box-shadow 0.3s ease',
+  },
+  imageContainer: {
+    width: '100%',
+    paddingTop: '100%', // Aspect Ratio 1:1
+    position: 'relative',
+    overflow: 'hidden',
   },
   productImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
     width: '100%',
-    height: '250px',
+    height: '100%',
     objectFit: 'cover',
-    display: 'block',
   },
   productInfo: {
     padding: '1rem',
+    flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
-    flex: 1,
   },
-  productTitle: {
-    fontSize: '1.125rem',
-    margin: '0 0 1rem 0',
-    color: '#1a1a1a',
-    fontWeight: 600,
-    lineHeight: 1.4,
-  },
-  productDetails: {
-    marginBottom: '1rem',
-    fontSize: '0.875rem',
-  },
-  detailItem: {
-    margin: '0.25rem 0',
-    color: '#666',
-    lineHeight: 1.5,
-  },
-  detailLabel: {
-    fontWeight: 600,
-    color: '#333',
+  productName: {
+    fontSize: '1.1rem',
+    fontWeight: '600',
+    margin: '0 0 0.5rem 0',
+    flexGrow: 1,
   },
   productPrice: {
-    fontSize: '1.125rem',
-    fontWeight: 700,
-    color: '#1a1a1a',
-    margin: '0.5rem 0 1rem 0',
+    fontSize: '1rem',
+    color: '#333',
+    margin: '0 0 1rem 0',
   },
-  buttonContainer: {
+  buttonGroup: {
     display: 'flex',
     gap: '0.5rem',
     marginTop: 'auto',
   },
-  viewCartButton: {
+  actionButton: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
-    color: '#1a1a1a',
-    border: '1px solid #e0e0e0',
     padding: '0.75rem',
+    border: '1px solid #ccc',
     borderRadius: '4px',
-    fontWeight: 600,
+    background: 'transparent',
     cursor: 'pointer',
-    fontSize: '0.875rem',
-    transition: 'background-color 0.2s',
   },
-  buyButton: {
+  addToCartButton: {
     flex: 1,
-    backgroundColor: '#ff6600',
-    color: 'white',
-    border: 'none',
     padding: '0.75rem',
+    border: 'none',
     borderRadius: '4px',
-    fontWeight: 600,
+    backgroundColor: '#007bff',
+    color: 'white',
     cursor: 'pointer',
-    fontSize: '0.875rem',
-    transition: 'background-color 0.2s',
   },
 };
 

@@ -5,23 +5,9 @@ export interface Category {
   color2: string;
 }
 
-export interface Bicycle {
-  id: number;
-  name: string;
-  tipo: string; // Tipo de bicicleta (Montaña, Ruta, Urbana, etc.)
-  marca: string; // Marca de la bicicleta
-  material: string; // Material del cuadro (Aluminio, Carbono, Acero, etc.)
-  transmision: string; // Tipo de transmisión
-  color: string;
-  tamaño?: string; // Tamaño de la bicicleta
-  precio: number;
-  descripcion: string;
-  imagen: string;
-}
-
-// Mantener Product para compatibilidad, pero usar Bicycle como principal
+// Interfaz unificada para todos los productos
 export interface Product {
-  id: number;
+  id: number | string;
   name: string;
   price: number;
   description: string;
@@ -35,7 +21,10 @@ export interface Product {
   tamaño?: string;
 }
 
-export interface CartItem extends Bicycle {
+// Bicycle ahora es un alias para Product para mantener compatibilidad
+export type Bicycle = Product;
+
+export interface CartItem extends Product {
   quantity: number;
 }
 
@@ -44,11 +33,11 @@ export interface CategoryCarouselProps {
 }
 
 export interface ProductCardProps {
-  product: Bicycle;
+  product: Product;
 }
 
 export interface ProductGridProps {
-  products: Bicycle[];
+  products: Product[];
 }
 
 export interface FilterState {
@@ -58,4 +47,44 @@ export interface FilterState {
   transmision: string;
   precioMin: number;
   precioMax: number;
+}
+
+export interface HeaderProps {
+  onLoginClick: () => void;
+  onRegisterClick: () => void;
+  cartItemCount: number;
+  onCartClick: () => void;
+}
+
+// Tipos de Shopify
+export interface ShopifyProduct {
+  id: string;
+  handle: string;
+  title: string;
+  description: string;
+  priceRange: {
+    minVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+  };
+  images: {
+    edges: {
+      node: {
+        url: string;
+        altText: string | null;
+      };
+    }[];
+  };
+}
+
+export interface ShopifyResponse {
+  data: {
+    products: {
+      edges: {
+        node: ShopifyProduct;
+      }[];
+    };
+  };
+  errors?: any; // Permitir que existan errores
 }
