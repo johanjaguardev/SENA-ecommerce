@@ -13,7 +13,7 @@ const ProductGrid: React.FC<ProductGridExtendedProps> = ({
   onAddToCart,
 }) => {
   return (
-    <div style={styles.productGrid}>
+    <div className="product-grid">
       {products.map((product) => (
         <ProductCard
           key={product.id}
@@ -24,14 +24,6 @@ const ProductGrid: React.FC<ProductGridExtendedProps> = ({
       ))}
     </div>
   );
-};
-
-const styles: { [key: string]: React.CSSProperties } = {
-  productGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-    gap: '1.5rem',
-  },
 };
 
 export default ProductGrid;

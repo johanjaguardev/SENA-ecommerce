@@ -1,0 +1,124 @@
+// ============================================================
+// Block: checkout-page
+// Módulo: Checkout
+// Metodología: BEM (máximo 2 niveles de anidamiento)
+// ============================================================
+
+.checkout-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: #0f172a;
+}
+
+// Element: checkout-page__card
+.checkout-page__card {
+  width: 100%;
+  max-width: 560px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+
+  @media (max-width: 480px) {
+    padding: 1.25rem;
+    border-radius: 8px;
+  }
+}
+
+// Element: checkout-page__title
+.checkout-page__title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #0f172a;
+}
+
+// Element: checkout-page__subtitle
+.checkout-page__subtitle {
+  margin-top: 0.5rem;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+// Element: checkout-page__summary
+.checkout-page__summary {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+// Element: checkout-page__row
+.checkout-page__row {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+  color: #334155;
+
+  strong {
+    color: #0f172a;
+  }
+}
+
+// Element: checkout-page__empty
+.checkout-page__empty {
+  margin-top: 1rem;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+// Element: checkout-page__success
+.checkout-page__success {
+  margin-top: 1rem;
+  color: #166534;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  background: #dcfce7;
+  border-radius: 6px;
+  border: 1px solid #bbf7d0;
+}
+
+// Element: checkout-page__link
+.checkout-page__link {
+  margin-top: 1rem;
+  display: inline-block;
+  color: #0f172a;
+  text-decoration: underline;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+// Element: checkout-page__btn (base compartida)
+.checkout-page__btn {
+  margin-top: 1rem;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 0.875rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+}
+
+// Modifier: checkout-page__btn--pay
+.checkout-page__btn--pay {
+  background: #ea580c;
+  color: #ffffff;
+
+  &:hover {
+    background: #c2410c;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}

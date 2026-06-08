@@ -1,0 +1,13 @@
+// ============================================================
+// main.scss — Entrypoint de estilos globales
+// Importa todos los parciales SCSS por módulo
+// ============================================================
+
+// Módulo: Catálogo
+@use 'catalog/product-card';
+@use 'catalog/product-grid';
+@use 'catalog/sidebar';
+
+// Módulo: Checkout
+@use 'checkout/checkout-page';
+@use 'checkout/cart-modal';
