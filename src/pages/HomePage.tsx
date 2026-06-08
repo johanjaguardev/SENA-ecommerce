@@ -1,6 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
-import type { Product, CartItem, FilterState, ShopifyProduct } from '../types';
-import { getProducts } from '../services/shopify';
+import type { Product, CartItem, FilterState } from '../types';
+import { useShopify } from '../hooks/useShopify';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
@@ -15,8 +15,8 @@ const CART_STORAGE_KEY = 'sena_ecommerce_cart';
 const CHECKOUT_STORAGE_KEY = 'sena_ecommerce_checkout_payload';
 
 const HomePage: React.FC = () => {
+  const { products: shopifyProducts, loading, error, retry } = useShopify();
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [filters, setFilters] = useState<FilterState>({
     tipo: 'Todas',
     marca: 'Todas',
@@ -34,11 +34,8 @@ const HomePage: React.FC = () => {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
   useEffect(() => {
-    const fetchProductsFromShopify = async () => {
-      setLoading(true);
-      const shopifyProducts: ShopifyProduct[] = await getProducts();
-
-      const formattedProducts: Product[] = shopifyProducts.map((p: ShopifyProduct) => ({
+    if (shopifyProducts.length > 0) {
+      const formattedProducts: Product[] = shopifyProducts.map((p) => ({
         id: p.id,
         name: p.title,
         description: p.description,
@@ -51,13 +48,9 @@ const HomePage: React.FC = () => {
         color: 'N/A',
         tamaño: 'N/A',
       }));
-
       setFilteredProducts(formattedProducts);
-      setLoading(false);
-    };
-
-    fetchProductsFromShopify();
-  }, []);
+    }
+  }, [shopifyProducts]);
 
   useEffect(() => {
     const storedCart = localStorage.getItem(CART_STORAGE_KEY);
@@ -141,6 +134,11 @@ const HomePage: React.FC = () => {
         <main style={{ flex: 1, padding: '2rem' }}>
           {loading ? (
             <p>Cargando productos desde Shopify...</p>
+          ) : error ? (
+            <div>
+              <p>Error al cargar los productos: {error.message}</p>
+              <button onClick={retry}>Reintentar</button>
+            </div>
           ) : (
             <ProductGrid
               products={filteredProducts}
