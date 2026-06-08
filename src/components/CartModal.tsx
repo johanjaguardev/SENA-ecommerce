@@ -33,35 +33,48 @@ const CartModal: React.FC<CartModalProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Carrito de Compras">
       {cartItems.length === 0 ? (
-        <p style={styles.emptyMessage}>Tu carrito está vacío.</p>
+        <p className="cart-modal__empty">Tu carrito está vacío.</p>
       ) : (
-        <div style={styles.cartContent}>
-          <ul style={styles.itemList}>
+        <div className="cart-modal__body">
+          <ul className="cart-modal__list">
             {cartItems.map((item) => (
-              <li key={item.id} style={styles.item}>
-                <img src={item.image} alt={item.name} style={styles.itemImage} />
-                <div style={styles.itemDetails}>
-                  <span style={styles.itemName}>{item.name}</span>
-                  <span style={styles.itemPrice}>{formatPrice(item.price)}</span>
+              <li key={item.id} className="cart-modal__item">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="cart-modal__item-image"
+                />
+                <div className="cart-modal__item-details">
+                  <span className="cart-modal__item-name">{item.name}</span>
+                  <span className="cart-modal__item-price">{formatPrice(item.price)}</span>
                 </div>
-                <div style={styles.itemControls}>
+                <div className="cart-modal__item-controls">
                   <input
                     type="number"
                     min="1"
                     value={item.quantity}
                     onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value, 10))}
-                    style={styles.quantityInput}
+                    className="cart-modal__quantity-input"
+                    aria-label={`Cantidad de ${item.name}`}
                   />
-                  <button onClick={() => onRemoveFromCart(item.id)} style={styles.removeButton}>
+                  <button
+                    onClick={() => onRemoveFromCart(item.id)}
+                    className="cart-modal__remove-btn"
+                    aria-label={`Eliminar ${item.name} del carrito`}
+                  >
                     Eliminar
                   </button>
                 </div>
               </li>
             ))}
           </ul>
-          <div style={styles.summary}>
-            <p style={styles.total}>Total: {formatPrice(total)}</p>
-            <button onClick={onCheckout} style={styles.checkoutButton} disabled={isCheckoutLoading}>
+          <div className="cart-modal__summary">
+            <p className="cart-modal__total">Total: {formatPrice(total)}</p>
+            <button
+              onClick={onCheckout}
+              className="cart-modal__checkout-btn"
+              disabled={isCheckoutLoading}
+            >
               {isCheckoutLoading ? 'Procesando...' : 'Finalizar Compra'}
             </button>
           </div>
@@ -69,55 +82,6 @@ const CartModal: React.FC<CartModalProps> = ({
       )}
     </Modal>
   );
-};
-
-const styles: { [key: string]: React.CSSProperties } = {
-  cartContent: { padding: '1rem' },
-  emptyMessage: { textAlign: 'center', padding: '2rem', color: '#666' },
-  itemList: { listStyle: 'none', padding: 0, margin: 0 },
-  item: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '1rem',
-    borderBottom: '1px solid #eee',
-    paddingBottom: '1rem',
-  },
-  itemImage: {
-    width: '80px',
-    height: '80px',
-    objectFit: 'cover',
-    marginRight: '1rem',
-    borderRadius: '4px',
-  },
-  itemDetails: { flex: 1, display: 'flex', flexDirection: 'column' },
-  itemName: { fontWeight: 'bold', marginBottom: '0.25rem' },
-  itemPrice: { color: '#888' },
-  itemControls: { display: 'flex', alignItems: 'center' },
-  quantityInput: { width: '50px', textAlign: 'center', marginRight: '0.5rem' },
-  removeButton: {
-    background: 'none',
-    border: '1px solid #ccc',
-    color: '#f00',
-    cursor: 'pointer',
-    padding: '0.25rem 0.5rem',
-    borderRadius: '4px',
-  },
-  summary: {
-    marginTop: '1.5rem',
-    paddingTop: '1rem',
-    borderTop: '2px solid #333',
-    textAlign: 'right',
-  },
-  total: { fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem' },
-  checkoutButton: {
-    backgroundColor: '#28a745',
-    color: 'white',
-    border: 'none',
-    padding: '0.75rem 1.5rem',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    borderRadius: '5px',
-  },
 };
 
 export default CartModal;
